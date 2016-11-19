@@ -1,0 +1,27 @@
+{
+  "name": "es6-babel-node-webpack-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./index.js",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Huy Hoang-Nguyen",
+    "email": "becucuatui@gmail.com",
+    "url": "https://github.com/hhoangnguyen/"
+  },
+  "license": "ISC"
+}
