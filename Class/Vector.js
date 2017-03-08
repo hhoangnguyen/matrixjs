@@ -113,4 +113,13 @@ export default class Vector extends Base {
     });
     return this.result.isValid();
   }
+
+  setData(data) {
+    this.data = data;
+    return this;
+  }
+
+  getData() {
+    return this.data;
+  }
 }

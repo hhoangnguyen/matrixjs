@@ -3,7 +3,7 @@ import Message from '../../Class/Message';
 import Result from '../../Class/Result';
 import Vector from '../../Class/Vector';
 
-describe('New Vector tests', () => {
+describe('New Matrix tests', () => {
   it('throws error if data not an array', () => {
     const func = () => new Matrix('a string');
     expect(func).toThrow(new Error(Message.vector.notArray));
@@ -17,17 +17,14 @@ describe('New Vector tests', () => {
     expect(func).toThrow(new Error(Message.vector.notNumberOrFloat + Result.dataPrefix() + 'a string'));
   });
   it('creates vector', () => {
-    const data = [1, 1.3, 9];
-    const vector = new Matrix(data, true);
+    let data = [1, 1.3, 9];
+    let vector = new Matrix(data, true);
 
     // dimension
     expect(vector.getDimension()).toBe(data.length);
 
-    // rowVector
-    expect(vector.isRowVector()).toBe(true);
-
-    // size
-    const dataSize = new Matrix([1, 3], true);
+    // size in case of vector
+    let dataSize = new Matrix([1, 3], true);
     expect(vector.getSize()).toMatchObject(dataSize);
 
     // get
@@ -37,6 +34,15 @@ describe('New Vector tests', () => {
     };
     expect(func).toThrow(new Error(Message.vector.outOfBound));
     expect(vector.get(1)).toBe(data[1]);
+
+    // size for 2 dimensional matrix
+    data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+    let matrix = new Matrix(data);
+    expect(matrix.getNumRows()).toBe(3);
+    expect(matrix.getNumColumns()).toBe(3);
+
+    dataSize = new Matrix([3, 3], true);
+    expect(matrix.getSize()).toMatchObject(dataSize);
   });
 });
 
@@ -54,5 +60,13 @@ describe('Check Matrix', () => {
     data = [[1, 2], [3, 4, 5], [1, 3]];
     let func = () => new Matrix(data);
     expect(func).toThrow(new Error(Message.matrix.rowDimensionNotMatch + Result.dataPrefix() + [3, 4, 5]));
+  });
+});
+
+describe('Identity Matrix', () => {
+  it('creates a 3x3 identity matrix', () => {
+    let data = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+    let matrix = new Matrix(data);
+    expect(Matrix.identity(3)).toMatchObject(matrix);
   });
 });
