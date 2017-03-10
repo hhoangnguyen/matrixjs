@@ -119,6 +119,9 @@ export default class Matrix extends Vector {
    * @returns {Matrix}
    */
   static identity(size) {
+    // size must be positive integer
+    if (size <= 0 || !Util.isInt(size)) throw new Error(Message.matrix.invalidSize);
+
     let dataArray = [];
     let currentIndexOfOne = 0;
     for (var row = 0; row < size; row++) {
@@ -131,6 +134,34 @@ export default class Matrix extends Vector {
       dataArray[row] = rowArray;
       // increase current index of 1
       currentIndexOfOne++;
+    }
+    return new Matrix(dataArray);
+  }
+
+  /**
+   * Create a matrix with rows x columns fill with 'value'
+   * @param rows
+   * @param columns
+   * @param value
+   * @returns {Matrix}
+   */
+  static matrixWithValue(rows, columns, value) {
+    // rows must be an integer
+    if (rows < 0 || !Util.isInt(rows)) throw new Error(Message.matrix.invalidRows);
+
+    // columns must be an integer
+    if (columns < 0 || !Util.isInt(columns)) throw new Error(Message.matrix.invalidColumns);
+
+    // both can't be 0
+    if (rows == 0 && columns == 0) throw new Error(Message.matrix.bothRowsAndColumnsZero);
+
+    let dataArray = [];
+    for (var row = 0; row < rows; row++) {
+      let rowArray = new Array(columns);
+      // fill array with value
+      rowArray.fill(value);
+      // push to dataArray
+      dataArray[row] = rowArray;
     }
     return new Matrix(dataArray);
   }

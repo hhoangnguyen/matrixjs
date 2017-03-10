@@ -10,5 +10,9 @@ Message.vector = {
 };
 
 Message.matrix = {
+  bothRowsAndColumnsZero: 'Both rows and columns are 0',
+  invalidSize: 'Invalid size, must be a positive integer',
+  invalidRows: 'Invalid rows, must be an integer',
+  invalidColumns: 'Invalid columns, must be an integer',
   rowDimensionNotMatch: 'Row dimensions not match'
 };

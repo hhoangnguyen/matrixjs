@@ -69,4 +69,29 @@ describe('Identity Matrix', () => {
     let matrix = new Matrix(data);
     expect(Matrix.identity(3)).toMatchObject(matrix);
   });
+
+  it('throws error if size is not a positive integer', () => {
+    let func = () => Matrix.identity(-3);
+    expect(func).toThrow(new Error(Message.matrix.invalidSize));
+    func = () => Matrix.identity(2.8);
+    expect(func).toThrow(new Error(Message.matrix.invalidSize));
+  });
+});
+
+describe('Matrix with value', () => {
+  it('throws error if rows or columns is not positive', () => {
+    let func = () => Matrix.matrixWithValue(-9, 3, -3);
+    expect(func).toThrow(new Error(Message.matrix.invalidRows));
+    func = () => Matrix.matrixWithValue(0, -4, -3);
+    expect(func).toThrow(new Error(Message.matrix.invalidColumns));
+  });
+  it('throws error if both rows and columns are 0', () => {
+    let func = () => Matrix.matrixWithValue(0, 0, -3);
+    expect(func).toThrow(new Error(Message.matrix.bothRowsAndColumnsZero));
+  });
+  it('creates a 2x3 zero matrix', () => {
+    let data = [[0, 0, 0], [0, 0, 0]];
+    let matrix = new Matrix(data);
+    expect(Matrix.matrixWithValue(2, 3, 0)).toMatchObject(matrix);
+  });
 });
