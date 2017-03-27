@@ -1,12 +1,13 @@
 import Message from './Message';
 import Util from './Util';
+import MatrixInterface from './Interface/MatrixInterface';
 import Vector from './Vector';
 
 /**
  * Class Matrix
  * @extends Vector
  */
-export default class Matrix extends Vector {
+export default class Matrix extends MatrixInterface {
   /**
    * Constructor
    * @param data
@@ -41,6 +42,75 @@ export default class Matrix extends Vector {
         throw new Error(Message.matrix.notNumberOrFloat);
       }
     }
+  }
+
+  /**
+   *
+   * @returns {*}
+   */
+  isRowVector() {
+    return this.rowVector;
+  }
+
+  /**
+   *
+   * @param rowVector
+   * @returns {Matrix}
+   */
+  setRowVector(rowVector) {
+    this.rowVector = rowVector;
+    return this;
+  }
+
+  setDimension(dimension) {
+    this.dimension = dimension;
+    return this;
+  }
+
+  getDimension() {
+    return this.dimension;
+  }
+
+  /**
+   * Array, not empty, integer or float
+   * @param data
+   * @returns {boolean}
+   */
+  isValidVectorData(data) {
+    if (!Util.isExisted(data)) data = this.data;
+
+    // is data an array?
+    if (!Util.isArray(data)) {
+      throw new Error(Message.vector.notArray);
+    }
+
+    // is data an empty array?
+    if (Util.isArrayEmpty(data)) {
+      throw new Error(Message.vector.dataArrayIsEmpty);
+    }
+
+    // is array element not in valid format?
+    if (!this.isCorrectFormat(data)) {
+      throw new Error(Message.vector.notNumberOrFloat + this.result.getData());
+    }
+
+    // all good
+    return true;
+  }
+
+  isCorrectFormat(data) {
+    // is it an array?
+    if (!Util.isArray(data)) return false;
+
+    this.result.setValid(true);
+    // loop through each element, make sure they're either integer or float
+    data.map((value) => {
+      if (!Util.isInt(value) && !Util.isFloat(value)) {
+        this.result.setValid(false);
+        this.result.setData(value);
+      }
+    });
+    return this.result.isValid();
   }
 
   /**
@@ -164,5 +234,24 @@ export default class Matrix extends Vector {
       dataArray[row] = rowArray;
     }
     return new Matrix(dataArray);
+  }
+
+  /**
+   * Check if is Matrix object
+   * @param data
+   * @returns {boolean}
+   */
+  static isMatrix(data) {
+    return (data !== null && data instanceof Matrix);
+  }
+
+  /**
+   * Static method to check if 2 matrices have same number of rows and columns
+   * @param a
+   * @param b
+   * @returns {boolean}
+   */
+  static haveSameDimension(a, b) {
+    return (a.getNumRows() == b.getNumRows() && a.getNumColumns() == b.getNumColumns());
   }
 }

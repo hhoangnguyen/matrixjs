@@ -95,3 +95,12 @@ describe('Matrix with value', () => {
     expect(Matrix.matrixWithValue(2, 3, 0)).toMatchObject(matrix);
   });
 });
+
+describe('Check if data is a Matrix', () => {
+  it('is a Matrix', () => {
+    let data = [[0, 0, 0], [0, 0, 0]];
+    let matrix = new Matrix(data);
+    expect(Matrix.isMatrix(2)).toBe(false);
+    expect(Matrix.isMatrix(matrix)).toBe(true);
+  });
+});

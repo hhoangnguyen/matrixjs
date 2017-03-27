@@ -122,4 +122,13 @@ export default class Vector extends Base {
   getData() {
     return this.data;
   }
+
+  /**
+   * Check if is Vector object
+   * @param data
+   * @returns {boolean}
+   */
+  static isVector(data) {
+    return (data !== null && data instanceof Vector);
+  }
 }
